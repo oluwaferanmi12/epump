@@ -68,6 +68,12 @@
     padding: 12px;
 }
 
+.manageDriverHeader{
+    font-size: 20px;
+    font-family: "Livvic" , sans-serif;
+    text-align: left;
+}
+
 .insub-container{
     margin-top: 8px;
 }

@@ -12,8 +12,8 @@ function Dashboard() {
   const { userPayload } = useSelector((state) => state.user);
   const [dashBoardData, setDashBoardData] = useState({});
   const [userName, setUserName] = useState("");
-  const [loading , setLoading] = useState(true)
-  const [errorFetching , setErrorFetching] = useState(false)
+  const [loading, setLoading] = useState(true);
+  const [errorFetching, setErrorFetching] = useState(false);
 
   useEffect(() => {
     if (!userPayload.isLoggedIn) {
@@ -40,15 +40,17 @@ function Dashboard() {
           accept: "*/*",
         },
       }),
-    ]).then((res) => {
-      setDashBoardData(res[0].data?.data?.dashboard)
-      setUserName(res[1].data?.data?.company?.name)
-    }).catch((e) => {
-      setErrorFetching(true)
-    }).finally(() => {
-      setLoading(false)
-    })
-    
+    ])
+      .then((res) => {
+        setDashBoardData(res[0].data?.data?.dashboard);
+        setUserName(res[1].data?.data?.company?.name);
+      })
+      .catch((e) => {
+        setErrorFetching(true);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   return (
@@ -58,7 +60,12 @@ function Dashboard() {
         <Col xs={22} lg={18}>
           <div className="mini-nav-dash">
             <div className="dashboard-title">Dashboard</div>
-            <div className="edit-driver">
+            <div
+              className="edit-driver"
+              onClick={() => {
+                router("/manage-drivers");
+              }}
+            >
               Edit Drivers
             </div>
           </div>
