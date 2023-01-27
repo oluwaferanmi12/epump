@@ -1,14 +1,42 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./DriverForm.css";
+import {v4 as genId} from "uuid"
 import { Row, Col } from "antd";
 
 function DriverForm() {
+    console.log(genId())
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("")
+    const data = Object.fromEntries(new FormData(e.target));
+    const { email, city, address, name, phone, altPhoneNumber, state } = data;
+    if (
+      !email &&
+      !city &&
+      !address &&
+      !name &&
+      !phone &&
+      !altPhoneNumber &&
+      !state
+    ) {
+      setError("Incorrect Credential");
+      setLoading(false);
+      return;
+    }
+
+    data.roles = ["driver"];
+    data.companyId = "";
+    data.userId = genId()
+  };
   return (
     <Row justify="center" align="middle" className="driver-form-row">
       <Col xs={22} sm={12} lg={6}>
         <div className="driver-form-wrapper">
           <div className="driverFormHeader">Fill Driver Info</div>
-          <form action="" className="a-Form">
+          <form action="" className="a-Form" onSubmit={handleSubmit}>
             <div>
               <div className="input-head">Name</div>
               <input
@@ -71,6 +99,21 @@ function DriverForm() {
                 name="state"
                 placeholder="Enter state"
               />
+            </div>
+
+            <div className="submit-wrapper">
+              <div>
+                <input
+                  value={loading ? "Submitting..." : "Submit"}
+                  disabled={loading}
+                  type="submit"
+                  className="submit-button"
+                />
+              </div>
+              <div className="close">close</div>
+            </div>
+            <div className="error">
+                {error && "Incorrect credential"}
             </div>
           </form>
         </div>

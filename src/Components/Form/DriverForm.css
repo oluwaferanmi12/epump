@@ -18,6 +18,10 @@
 .driverFormHeader{
     font-size: 24px;
 }
+
+.error{
+    color: red;
+}
 .driver-form-row{
     position: fixed;
     left: 0px;
@@ -37,6 +41,23 @@
     background-color: #f5f5f5;
     border: none;
     padding: 12px;
+}
+.submit-button{
+    padding: 4px 12px;
+    border-radius: 4px;
+    background-color: blue;
+    border: none;
+    color: white;
+    font-family: "Livvic" , sans-serif;
+}
+.close{
+    cursor: pointer;
+}
+
+.submit-wrapper{
+    margin-top: 12px;
+    display: flex;
+    justify-content: space-between;
 }
 
 .driver-input:focus{
