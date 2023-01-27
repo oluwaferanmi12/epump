@@ -46,7 +46,7 @@ function DriverForm({ handleClose, handleRefresh }) {
       })
       .then((res) => {
         handleRefresh(true);
-        handleClose(true);
+        handleClose(false);
       })
       .catch((e) => console.error(e))
       .finally(() => {
