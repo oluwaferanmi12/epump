@@ -104,7 +104,7 @@ function Manage() {
                 <Row gutter={20}>
                   {driversList.map((item, index) => {
                     return (
-                      <Col xs={12} lg={6} key={index}>
+                      <Col xs={22} lg={6} key={index}>
                         <div className="metrics-table">
                           <div className="metrics-header">{item.name}</div>
 
