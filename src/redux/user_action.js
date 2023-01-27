@@ -3,11 +3,11 @@ import { createSlice } from "@reduxjs/toolkit";
 export const userSlice = createSlice({
   name: "userPayload",
   initialState: {
-    userPayload: {name: "David Awodiji"}
+    userPayload: {isLoggedIn: false}
   },
   reducers:{
-    saveUser: (state) => {
-        state.userPayload = {name: "Oluwaferanmi Mark Agba"}
+    saveUser: (state , action) => {
+        state.userPayload = action.payload
     }
   }
 });

@@ -1,0 +1,57 @@
+.form-container{
+    padding: 20px 30px;
+    background-color: #fff;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: ;
+    margin-top: 50px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    
+}
+
+.label{
+    margin-bottom: 4px;
+    margin-top: 16px;
+}
+
+.error-class{
+    color: red;
+}
+
+.success-class{
+    color: green;
+}
+
+.response-message{
+    margin: 20px;
+}
+
+.data-input{
+    width: 80%;
+    padding: 16px 20px;
+    border: none;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+}
+
+.data-input:focus{
+    outline: none;
+    border: 3px solid #f5f5f5;
+}
+
+.submit-container{
+    margin-top: 15px;
+    
+    
+}
+
+.submit-input{
+    padding: 12px 24px;
+    background: blue;
+    border: none;
+    cursor: pointer;
+    color: white;
+    border-radius: 8px;
+
+}

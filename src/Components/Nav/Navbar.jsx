@@ -1,14 +1,11 @@
 import React, { useContext, useEffect } from "react";
 import { Store } from "../../context/store";
+import "./Nav.css"
 
 function Navbar() {
-  const { userPayload, setUserPayload } = useContext(Store);
+  
 
-  useEffect(() => {
-    setUserPayload("David");
-  }, []);
-
-  return <div>This is the navbar</div>;
+  return <div className="nav-wrapper">Epump Africa</div>;
 }
 
 export default Navbar;
