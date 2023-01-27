@@ -56,7 +56,12 @@ function Dashboard() {
       <Navbar />
       <Row align="middle" justify="center">
         <Col xs={22} lg={18}>
-          <div className="dashboard-title">Dashboard</div>
+          <div className="mini-nav-dash">
+            <div className="dashboard-title">Dashboard</div>
+            <div className="edit-driver">
+              Edit Drivers
+            </div>
+          </div>
           {loading ? (
             <>Loading ...</>
           ) : errorFetching ? (

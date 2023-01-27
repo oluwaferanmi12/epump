@@ -10,7 +10,7 @@
 }
 
 .dashboard-title {
-    margin-top: 50px;
+    
     margin-bottom: 8px;
     text-align: left;
     font-weight: bold;
@@ -44,11 +44,28 @@
     margin-top: 20px;
 }
 
+.mini-nav-dash{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+    margin-bottom: 8px;
+    font-family: "Livvic" , sans-serif;
+}
+
 .metrics-sub{
     font-weight: bold;
     font-family: "Livvic" , sans-serif;
     font-size: 28px;
     margin-top: 4px;
+}
+
+.edit-driver{
+    font-family: "Livvic" , sans-serif;
+    cursor: pointer;
+    background-color: blue;
+    color: white;
+    border-radius: 8px;
+    padding: 12px;
 }
 
 .insub-container{
