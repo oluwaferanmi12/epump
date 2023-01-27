@@ -12,6 +12,23 @@ export const userSlice = createSlice({
   }
 });
 
+export const companySlice = createSlice({
+    name:"companyPayload",
+    initialState:{
+        companyPayload: {}
+    },
+    reducers: {
+        saveCompany: (state , action) => {
+            state.companyPayload = action.payload
+        }
+    }
+})
+
 export const {saveUser} = userSlice.actions
+
+export const {saveCompany} = companySlice.actions;
+
+export const companyReducer =  companySlice.reducer;
+
 
 export default userSlice.reducer

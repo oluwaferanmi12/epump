@@ -5,7 +5,7 @@ import "./Home.css";
 import { Row, Col } from "antd";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { saveUser } from "../redux/user_action";
+import { saveCompany, saveUser } from "../redux/user_action";
 import { useNavigate } from "react-router-dom";
 
 function Home() {
@@ -23,6 +23,25 @@ function Home() {
     }
   }, []);
 
+  const handleCompanyData = (token, userData) => {
+    axios
+      .get("https://demoapi.remis.africa/Company/Details", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          accept: "*/*",
+        },
+      })
+      .then((res) => {
+        dispatch(saveCompany(res.data));
+        dispatch(saveUser({ isLoggedIn: true, ...userData }));
+        setSuccess("User Authorised");
+        setTimeout(() => {
+          router("/dashboard", { replace: true });
+        }, 3000);
+      })
+      .catch((e) => setError("Oops could not login"));
+  };
+
   const handleLogin = (e) => {
     setLoading(true);
     e.preventDefault();
@@ -39,11 +58,8 @@ function Home() {
     axios
       .post("https://demoapi.remis.africa/Login", data)
       .then((res) => {
-        dispatch(saveUser({ isLoggedIn: true, ...res.data }));
-        setSuccess("User Authorised");
-        setTimeout(() => {
-          router("/dashboard", { replace: true });
-        }, 3000);
+        handleCompanyData(res.data.token, res.data);
+        
       })
       .catch((e) => {
         console.log(e);

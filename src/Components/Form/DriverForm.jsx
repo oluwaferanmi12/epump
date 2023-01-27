@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
 import "./DriverForm.css";
-import {v4 as genId} from "uuid"
+import { v4 as genId } from "uuid";
 import { Row, Col } from "antd";
+import { useSelector } from "react-redux";
+import axios from "axios";
 
-function DriverForm() {
-    console.log(genId())
+function DriverForm({ handleClose, handleRefresh }) {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const { companyPayload } = useSelector((state) => state.company);
+  const { userPayload } = useSelector((state) => state.user);
+  const companyId = companyPayload.data.company.id;
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-    setError("")
+    setError("");
     const data = Object.fromEntries(new FormData(e.target));
     const { email, city, address, name, phone, altPhoneNumber, state } = data;
     if (
@@ -28,8 +33,25 @@ function DriverForm() {
     }
 
     data.roles = ["driver"];
-    data.companyId = "";
-    data.userId = genId()
+    data.companyId = companyId;
+
+    data.userId = genId();
+
+    axios
+      .post(`https://demoapi.remis.africa/Driver/Add/${companyId}`, data, {
+        headers: {
+          Authorization: `Bearer ${userPayload.token}`,
+          accept: "*/*",
+        },
+      })
+      .then((res) => {
+        handleRefresh(true);
+        handleClose(true);
+      })
+      .catch((e) => console.error(e))
+      .finally(() => {
+        setLoading(false);
+      });
   };
   return (
     <Row justify="center" align="middle" className="driver-form-row">
@@ -110,11 +132,16 @@ function DriverForm() {
                   className="submit-button"
                 />
               </div>
-              <div className="close">close</div>
+              <div
+                className="close"
+                onClick={() => {
+                  handleClose(false);
+                }}
+              >
+                close
+              </div>
             </div>
-            <div className="error">
-                {error && "Incorrect credential"}
-            </div>
+            <div className="error">{error && "Incorrect credential"}</div>
           </form>
         </div>
       </Col>

@@ -10,10 +10,36 @@ import DriverForm from "../../../Components/Form/DriverForm";
 
 function Manage() {
   const { userPayload } = useSelector((state) => state.user);
-  console.log(userPayload)
-  const [driversList , setDriversList] = useState([])
-  const [loading , setLoading ] = useState(true)
+  const { companyPayload } = useSelector((state) => state.company);
+  const [driversList, setDriversList] = useState([]);
+  const [showAddDriver, setShowAddDriver] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [refetchData, setRefetchData] = useState(false);
   const router = useNavigate();
+  const companyId = companyPayload.data.company.id;
+  const [deleteIndicator, setDeleteIndicator] = useState(false);
+  const [currentIndex , setCurrentIndex] = useState(-1)
+
+  const handleDelete = (driverId , currentIndex) => {
+    setDeleteIndicator(true);
+    axios
+      .delete(
+        `https://demoapi.remis.africa/Driver/Delete/${companyId}/${driverId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${userPayload.token}`,
+            accept: "*/*",
+          },
+        }
+      )
+      .then((res) => {
+        setRefetchData(true);
+      })
+      .catch((e) => console.error(e))
+      .finally(() => {
+        setDeleteIndicator(false);
+      });
+  };
 
   useEffect(() => {
     if (!userPayload.isLoggedIn) {
@@ -31,15 +57,21 @@ function Manage() {
         }
       )
       .then((res) => {
-        setDriversList(res.data)
+        setDriversList(res.data);
       })
-      .catch((e) => console.log(e)).finally(() => setLoading(false))
-  }, []);
+      .catch((e) => console.log(e))
+      .finally(() => setLoading(false));
+  }, [refetchData]);
 
   return (
     <>
       <Navbar />
-      <DriverForm />
+      {showAddDriver && (
+        <DriverForm
+          handleRefresh={setRefetchData}
+          handleClose={setShowAddDriver}
+        />
+      )}
       <Row align={"middle"} justify={"center"}>
         <Col xs={22} lg={18}>
           <div className="mini-nav-dash">
@@ -48,7 +80,7 @@ function Manage() {
             <div
               className="edit-driver"
               onClick={() => {
-                router("/dashboard");
+                setShowAddDriver(true);
               }}
             >
               Add Driver
@@ -99,8 +131,14 @@ function Manage() {
                           </div>
 
                           <div className="delete-wrapper">
-                            <div className="delete_button">
-                              Delete {item.name}
+                            <div
+                              className="delete_button"
+                              onClick={() => {
+                                handleDelete(item.id);
+                                setCurrentIndex(index)
+                              }}
+                            >
+                              {deleteIndicator && currentIndex == index ? "Deleting" : `Delete ${item.name}`}
                             </div>
                           </div>
                         </div>
