@@ -39,7 +39,7 @@ function Home() {
     axios
       .post("https://demoapi.remis.africa/Login", data)
       .then((res) => {
-        // dispatch(saveUser({ isLoggedIn: true, ...res.data }));
+        dispatch(saveUser({ isLoggedIn: true, ...res.data }));
         setSuccess("User Authorised");
         setTimeout(() => {
           router("/dashboard", { replace: true });
