@@ -6,9 +6,11 @@ import "../Dashboard/dashboard.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import DriverForm from "../../../Components/Form/DriverForm";
 
 function Manage() {
   const { userPayload } = useSelector((state) => state.user);
+  console.log(userPayload)
   const [driversList , setDriversList] = useState([])
   const [loading , setLoading ] = useState(true)
   const router = useNavigate();
@@ -34,15 +36,23 @@ function Manage() {
       .catch((e) => console.log(e)).finally(() => setLoading(false))
   }, []);
 
-  console.log(driversList)
-
   return (
     <>
       <Navbar />
+      <DriverForm />
       <Row align={"middle"} justify={"center"}>
         <Col xs={22} lg={18}>
           <div className="mini-nav-dash">
             <div className="dashboard-title">Manage Drivers</div>
+
+            <div
+              className="edit-driver"
+              onClick={() => {
+                router("/dashboard");
+              }}
+            >
+              Add Driver
+            </div>
             <div
               className="edit-driver"
               onClick={() => {
@@ -68,22 +78,29 @@ function Manage() {
 
                           <div className="insub-container">
                             <div className="metrics-insub">
-                              phone:{" "} {item.phone}
+                              phone: {item.phone}
                             </div>
                             <div className="metrics-insub">
-                              code:{" "} {item.code}
+                              code: {item.code}
                             </div>
                             <div className="metrics-insub">
-                              address:{" "} {item?.address ? item.address : "Nil"}
+                              address: {item?.address ? item.address : "Nil"}
                             </div>
                             <div className="metrics-insub">
-                              email:{" "} {item?.email ? item.email : "Nil"}
+                              email: {item?.email ? item.email : "Nil"}
                             </div>
                             <div className="metrics-insub">
-                              vehicleAssigned:{" "} {item?.vehicleAssigned ? "Yes" : "Nil"}
+                              vehicleAssigned:{" "}
+                              {item?.vehicleAssigned ? "Yes" : "Nil"}
                             </div>
                             <div className="metrics-insub">
-                              status:{" "} {item?.status ? "Active" : "Nil"}
+                              status: {item?.status ? "Active" : "Nil"}
+                            </div>
+                          </div>
+
+                          <div className="delete-wrapper">
+                            <div className="delete_button">
+                              Delete {item.name}
                             </div>
                           </div>
                         </div>

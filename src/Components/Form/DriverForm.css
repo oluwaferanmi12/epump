@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Livvic&display=swap');
+
+.driver-form-wrapper{
+    background-color: white;
+    min-width: 100%;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+    font-family: "Livvic" , sans-serif;
+
+}
+
+
+.driverFormHeader{
+    font-size: 24px;
+}
+.driver-form-row{
+    position: fixed;
+    left: 0px;
+    z-index: 20;
+    top: 50px;
+    right: 0px;
+}
+
